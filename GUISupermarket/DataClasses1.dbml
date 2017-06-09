@@ -1,19 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SUPERMARKETDB" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=laptop-e6nrduvu;Initial Catalog=SUPERMARKETDB;Integrated Security=True" SettingsObjectName="GUISupermarket.Properties.Settings" SettingsPropertyName="SUPERMARKETDBConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.UserAccount" Member="UserAccounts">
-    <Type Name="UserAccount">
-      <Column Name="username" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="pswd" Type="System.String" DbType="Char(8)" CanBeNull="true" />
-      <Column Name="balance" Type="System.Decimal" DbType="Decimal(2,2)" CanBeNull="true" />
-      <Association Name="UserAccount_Purchase" Member="Purchases" ThisKey="username" OtherKey="username" Type="Purchase" />
-      <Association Name="UserAccount_Payment" Member="Payments" ThisKey="username" OtherKey="username" Type="Payment" />
-    </Type>
-  </Table>
   <Table Name="dbo.Purchase_Item" Member="Purchase_Items">
     <Type Name="Purchase_Item">
       <Column Name="purchaseID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="itemID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Purchase_Purchase_Item" Member="Purchase" ThisKey="purchaseID" OtherKey="PurchaseID" Type="Purchase" IsForeignKey="true" />
+      <Association Name="Item_Purchase_Item" Member="Item" ThisKey="itemID" OtherKey="itemID" Type="Item" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Purchase" Member="Purchases">
@@ -33,6 +25,23 @@
       <Column Name="amount" Type="System.Decimal" DbType="Decimal(2,2)" CanBeNull="true" />
       <Column Name="username" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Association Name="UserAccount_Payment" Member="UserAccount" ThisKey="username" OtherKey="username" Type="UserAccount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Item" Member="Items">
+    <Type Name="Item">
+      <Column Name="itemID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="itemDesc" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="price" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
+      <Association Name="Item_Purchase_Item" Member="Purchase_Items" ThisKey="itemID" OtherKey="itemID" Type="Purchase_Item" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserAccount" Member="UserAccounts">
+    <Type Name="UserAccount">
+      <Column Name="username" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="pswd" Type="System.String" DbType="Char(8)" CanBeNull="true" />
+      <Column Name="balance" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="UserAccount_Purchase" Member="Purchases" ThisKey="username" OtherKey="username" Type="Purchase" />
+      <Association Name="UserAccount_Payment" Member="Payments" ThisKey="username" OtherKey="username" Type="Payment" />
     </Type>
   </Table>
 </Database>

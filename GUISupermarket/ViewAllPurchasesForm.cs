@@ -10,18 +10,13 @@ using System.Windows.Forms;
 
 namespace GUISupermarket
 {
-    public partial class ViewPurchasesForm : Form
+    public partial class ViewAllPurchasesForm : Form
     {
-        public ViewPurchasesForm()
+        public ViewAllPurchasesForm()
         {
             InitializeComponent();
         }
 
-        private void btnAllPurchases_Click(object sender, EventArgs e)
-        {
-            new ViewAllPurchasesForm();
-           
-        }
+        
     }
-
 }
