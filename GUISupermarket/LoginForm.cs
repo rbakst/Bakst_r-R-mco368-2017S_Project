@@ -25,9 +25,9 @@ namespace GUISupermarket
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            using (DataClasses1DataContext context = new DataClasses1DataContext())
+            using (Global.Context)
             {
-                var user = context.UserAccounts.FirstOrDefault(u => u.username.Equals(usernameTB.Text) && u.pswd.Equals(pswdTB.Text));
+                var user = Global.Context.UserAccounts.FirstOrDefault(u => u.username.Equals(usernameTB.Text) && u.pswd.Equals(pswdTB.Text));
                 if (user == null)
                 {
                     MessageBox.Show("Username or Password Invalid");
@@ -35,9 +35,16 @@ namespace GUISupermarket
                 else
                 {
                     Global.CurrUser = user;
+                    //temporary
+                    new MainMenuForm().Show();
                 }
             }
                 
+        }
+
+        private void createAccountLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new SignUpForm().Show();
         }
     }
 }

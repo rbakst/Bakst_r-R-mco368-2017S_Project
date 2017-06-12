@@ -23,12 +23,12 @@ namespace GUISupermarket
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            using (DataClasses1DataContext context = new DataClasses1DataContext())
+            using (Global.Context)
             {
                 //why don't we need this?
                 //Table<UserAccount> users = context.GetTable<UserAccount>();
 
-                Boolean contains = context.UserAccounts.Any(u => u.username.Equals(usernameTB.Text));
+                Boolean contains = Global.Context.UserAccounts.Any(u => u.username.Equals(usernameTB.Text));
                 if (contains)
                 {
                     newUsernameLabel.Visible = true;
@@ -38,7 +38,7 @@ namespace GUISupermarket
                     passwordProblemLabel.Text = "Password must be 8 characters long";
                     passwordProblemLabel.Visible = true;
                 }
-                else if(pswdTB.Text != reenterpswdTB.Text)
+                else if (pswdTB.Text != reenterpswdTB.Text)
                 {
                     passwordProblemLabel.Text = "Passwords don't match";
                     passwordProblemLabel.Visible = true;
@@ -49,10 +49,11 @@ namespace GUISupermarket
                     user.username = usernameTB.Text;
                     user.pswd = pswdTB.Text;
                     user.balance = 0;
-                    context.UserAccounts.InsertOnSubmit(user);
-                    context.SubmitChanges();
+                    Global.Context.UserAccounts.InsertOnSubmit(user);
+                    Global.Context.SubmitChanges();
                     MessageBox.Show("Thank you for signing up");
-                    
+                    new MainMenuForm().Show();
+
                 }
             }
         }

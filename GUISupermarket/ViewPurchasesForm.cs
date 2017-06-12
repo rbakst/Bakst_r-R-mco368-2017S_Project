@@ -19,8 +19,33 @@ namespace GUISupermarket
 
         private void btnAllPurchases_Click(object sender, EventArgs e)
         {
-            new ViewAllPurchasesForm();
+            using (Global.Context)
+            {
+                ViewAllPurchasesForm form = new ViewAllPurchasesForm();
+                form.purchasesGridView.DataSource = Global.Context.Purchases.Select(p => p);
+                form.Show();
+            }
            
+        }
+
+        private void btnDatePurchases_Click(object sender, EventArgs e)
+        {
+            using (Global.Context)
+            {
+                ViewAllPurchasesForm form = new ViewAllPurchasesForm();
+                form.purchasesGridView.DataSource = Global.Context.Purchases.Where(p => p.purchaseDate >= calendar.SelectionStart && p.purchaseDate <= calendar.SelectionEnd);
+                form.Show();    
+            }
+        }
+
+        private void btnAmountPurchases_Click(object sender, EventArgs e)
+        {
+            using (Global.Context)
+            {
+                ViewAllPurchasesForm form = new ViewAllPurchasesForm();
+                form.purchasesGridView.DataSource = Global.Context.Purchases.Where(p => p.totalPrice >= FromAmount.Value && p.totalPrice <= ToAmount.Value);
+                form.Show();
+            }
         }
     }
 

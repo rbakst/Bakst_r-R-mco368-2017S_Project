@@ -20,6 +20,7 @@ namespace GUISupermarket
 
         private void btnSubmitPayment_Click(object sender, EventArgs e)
         {
+            Global.CurrUser.balance -= numericUpDown1.Value;
             MessageBox.Show("Thank you for your payment.\nYour balance is: " + Global.CurrUser.balance);
         }
     }
