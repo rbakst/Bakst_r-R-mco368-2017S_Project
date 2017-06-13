@@ -24,6 +24,8 @@ namespace GUISupermarket
                 ViewAllPurchasesForm form = new ViewAllPurchasesForm();
                 form.purchasesGridView.DataSource = Global.Context.Purchases.Select(p => p);
                 form.Show();
+                this.Hide();
+
             }
            
         }
@@ -34,7 +36,8 @@ namespace GUISupermarket
             {
                 ViewAllPurchasesForm form = new ViewAllPurchasesForm();
                 form.purchasesGridView.DataSource = Global.Context.Purchases.Where(p => p.purchaseDate >= calendar.SelectionStart && p.purchaseDate <= calendar.SelectionEnd);
-                form.Show();    
+                form.Show();
+                this.Hide();   
             }
         }
 
@@ -45,6 +48,7 @@ namespace GUISupermarket
                 ViewAllPurchasesForm form = new ViewAllPurchasesForm();
                 form.purchasesGridView.DataSource = Global.Context.Purchases.Where(p => p.totalPrice >= FromAmount.Value && p.totalPrice <= ToAmount.Value);
                 form.Show();
+                this.Hide();
             }
         }
     }

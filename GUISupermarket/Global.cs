@@ -14,7 +14,7 @@ namespace GUISupermarket
         public static UserAccount CurrUser { get; set; }
 
         private static readonly decimal _MAXBALANCE = 100.00M;
-        public static decimal MAXBALANCE { get; }
+        public static decimal MAXBALANCE { get { return _MAXBALANCE; } }
 
         public static DataClasses1DataContext Context
         {

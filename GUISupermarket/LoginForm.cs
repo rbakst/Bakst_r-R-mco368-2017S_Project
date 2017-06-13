@@ -37,6 +37,7 @@ namespace GUISupermarket
                     Global.CurrUser = user;
                     //temporary
                     new MainMenuForm().Show();
+                    this.Hide();
                 }
             }
                 
@@ -45,6 +46,7 @@ namespace GUISupermarket
         private void createAccountLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             new SignUpForm().Show();
+            this.Hide();
         }
     }
 }

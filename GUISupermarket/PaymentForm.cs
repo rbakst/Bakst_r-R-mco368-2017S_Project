@@ -22,6 +22,7 @@ namespace GUISupermarket
         {
             Global.CurrUser.balance -= numericUpDown1.Value;
             MessageBox.Show("Thank you for your payment.\nYour balance is: " + Global.CurrUser.balance);
+            this.Hide();
         }
     }
 }

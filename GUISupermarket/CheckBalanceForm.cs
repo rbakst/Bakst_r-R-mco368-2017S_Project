@@ -21,6 +21,7 @@ namespace GUISupermarket
         private void btnMakePayment_Click(object sender, EventArgs e)
         {
             new PaymentForm().Show();
+            this.Hide();
         }
     }
 }

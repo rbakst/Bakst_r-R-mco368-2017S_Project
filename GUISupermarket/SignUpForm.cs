@@ -53,6 +53,7 @@ namespace GUISupermarket
                     Global.Context.SubmitChanges();
                     MessageBox.Show("Thank you for signing up");
                     new MainMenuForm().Show();
+                    this.Hide();
 
                 }
             }

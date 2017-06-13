@@ -35,6 +35,7 @@
             this.checkBalanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnExit = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,14 +63,14 @@
             // purchaseToolStripMenuItem
             // 
             this.purchaseToolStripMenuItem.Name = "purchaseToolStripMenuItem";
-            this.purchaseToolStripMenuItem.Size = new System.Drawing.Size(223, 26);
+            this.purchaseToolStripMenuItem.Size = new System.Drawing.Size(308, 26);
             this.purchaseToolStripMenuItem.Text = "Browse and Purchase";
             this.purchaseToolStripMenuItem.Click += new System.EventHandler(this.purchaseToolStripMenuItem_Click);
             // 
             // viewPurchasesToolStripMenuItem
             // 
             this.viewPurchasesToolStripMenuItem.Name = "viewPurchasesToolStripMenuItem";
-            this.viewPurchasesToolStripMenuItem.Size = new System.Drawing.Size(223, 26);
+            this.viewPurchasesToolStripMenuItem.Size = new System.Drawing.Size(308, 26);
             this.viewPurchasesToolStripMenuItem.Text = "View Purchases";
             this.viewPurchasesToolStripMenuItem.Click += new System.EventHandler(this.viewPurchasesToolStripMenuItem_Click);
             // 
@@ -100,11 +101,22 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Choose from the menu above";
             // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(369, 351);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(75, 23);
+            this.btnExit.TabIndex = 3;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(482, 402);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
@@ -127,5 +139,6 @@
         private System.Windows.Forms.ToolStripMenuItem checkBalanceToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnExit;
     }
 }

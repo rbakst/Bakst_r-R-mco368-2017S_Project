@@ -27,27 +27,30 @@ namespace GUISupermarket
         {
             using (Global.Context)
             {
-                var products = Global.Context.Items.Select(p => new { p.itemID, p.itemDesc, p.price });
+                
+                //format price to currency accross project.
+                var products = Global.Context.Items.Select(p => new { p.itemID, p.itemDesc,  p.price });
                 dataGridView1.DataSource = products;
             }
 
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantity.HeaderText = "Quantity";
             this.Quantity.Name = "Quantity";
+            this.Quantity.DefaultCellStyle.NullValue =0.ToString();
+            this.dataGridView1.Columns["price"].DefaultCellStyle.Format = "c";
+
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Quantity
-    });
+             });
         }
 
         private void btnPurchase_Click(object sender, EventArgs e)
         {
 
             using (Global.Context)
+           //using (DataClasses1DataContext c = new DataClasses1DataContext())
             {
-
-
-
-                try
+          try
                 {
                     if (Global.CurrUser.balance > Global.MAXBALANCE)
                     {
@@ -63,48 +66,71 @@ namespace GUISupermarket
                         int numItems = 0;
                         decimal price;
                         string itemDesc;
+                        List<Purchase_Item> purItems = new List<Purchase_Item>();
 
-
-                        Purchase p = new Purchase();
-                        p.UserAccount = Global.CurrUser;
-                        Global.Context.Purchases.InsertOnSubmit(p);
-
-                        Global.Context.SubmitChanges();
-                        int pID = p.PurchaseID;
-
+                       
                         foreach (DataGridViewRow aRow in dataGridView1.Rows)
                         {
 
                             DataGridViewCell col = aRow.Cells["Quantity"];//dk if will work
-                            if (Int32.TryParse(col.Value.ToString(), out colVal))
+                            if (col.Value != null)
                             {
-                               
-                                itemID = (int)(aRow.Cells["itemID"].Value);
-                                Purchase_Item pi = new Purchase_Item();
-                                pi.itemID = itemID;
-                                pi.Purchase = p;
-                                pi.amount = colVal;
-                                total += colVal * (decimal)aRow.Cells["price"].Value;
-                                Global.Context.Purchase_Items.InsertOnSubmit(pi);
-                                Global.Context.SubmitChanges();
-                                numItems += colVal;
+                                if (Int32.TryParse(col.Value.ToString(), out colVal))
+                                {
 
+                                    Purchase_Item pi = new Purchase_Item();
+                                    itemID = (int)(aRow.Cells["itemID"].Value);
+
+                                    pi.itemID = itemID;
+                                    pi.amount = colVal;
+                                    purItems.Add(pi);
+
+                                    total += colVal * (decimal)aRow.Cells["price"].Value;
+                                    numItems += colVal;
+
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Quantity column is innacurate for " + aRow.Cells["itemDesc"].Value.ToString() + ".\nExcluded from order.");
+
+                                }
                             }
-                            else
-                            {
-                                MessageBox.Show("Quantity column is innacurate for " + aRow.Cells["itemDesc"].ToString() + ".\nExcluded from order.");
-
-                            }
-
 
 
                         }
-
+                        Purchase p = new Purchase();
+                        //p.UserAccount = Global.CurrUser;
+                        p.username = Global.CurrUser.username;
                         p.numItems = numItems;
                         p.totalPrice = total;
-                        Global.CurrUser.balance += total;
+                        p.purchaseDate = DateTime.Now;
+                        Global.Context.Purchases.InsertOnSubmit(p);
+
+                        //test - wroks
+                       // int i = Global.Context.ExecuteCommand("insert into Purchase values('rb', 2, 5.00, getDate())");
+                       //ChangeSet x2 = Global.Context.GetChangeSet();
+                       // c.Purchases.InsertOnSubmit(p);
+                       // c.SubmitChanges();
                         Global.Context.SubmitChanges();
+                        //doesn't submit?
+                        bool x = Global.Context.Purchases.Contains(p);
+                        MessageBox.Show(x.ToString());
+
+                        int pID = p.PurchaseID;
+
+                        //does this update the table in the datacontext?
+                        Global.CurrUser.balance += total;
+
+                        foreach (Purchase_Item pi in purItems)
+                        {
+                            pi.purchaseID = pID;
+                            Global.Context.Purchase_Items.InsertOnSubmit(pi);
+                            //c.Purchase_Items.InsertOnSubmit(pi);
+                            Global.Context.SubmitChanges();
+                            //c.SubmitChanges();
+                        }
                         MessageBox.Show("Order submitted. Thank you for shopping with us");
+                        this.Hide();
 
                     }
                 }
