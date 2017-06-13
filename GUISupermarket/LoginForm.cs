@@ -25,9 +25,9 @@ namespace GUISupermarket
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            using (Global.Context)
+            using (DataClasses1DataContext context =  new DataClasses1DataContext())
             {
-                var user = Global.Context.UserAccounts.FirstOrDefault(u => u.username.Equals(usernameTB.Text) && u.pswd.Equals(pswdTB.Text));
+                var user = context.UserAccounts.FirstOrDefault(u => u.username.Equals(usernameTB.Text) && u.pswd.Equals(pswdTB.Text));
                 if (user == null)
                 {
                     MessageBox.Show("Username or Password Invalid");

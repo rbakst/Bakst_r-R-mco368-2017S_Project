@@ -30,12 +30,6 @@ namespace GUISupermarket
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertPurchase_Item(Purchase_Item instance);
-    partial void UpdatePurchase_Item(Purchase_Item instance);
-    partial void DeletePurchase_Item(Purchase_Item instance);
-    partial void InsertUserAccount(UserAccount instance);
-    partial void UpdateUserAccount(UserAccount instance);
-    partial void DeleteUserAccount(UserAccount instance);
     partial void InsertItem(Item instance);
     partial void UpdateItem(Item instance);
     partial void DeleteItem(Item instance);
@@ -45,6 +39,12 @@ namespace GUISupermarket
     partial void InsertPurchase(Purchase instance);
     partial void UpdatePurchase(Purchase instance);
     partial void DeletePurchase(Purchase instance);
+    partial void InsertPurchase_Item(Purchase_Item instance);
+    partial void UpdatePurchase_Item(Purchase_Item instance);
+    partial void DeletePurchase_Item(Purchase_Item instance);
+    partial void InsertUserAccount(UserAccount instance);
+    partial void UpdateUserAccount(UserAccount instance);
+    partial void DeleteUserAccount(UserAccount instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -77,22 +77,6 @@ namespace GUISupermarket
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Purchase_Item> Purchase_Items
-		{
-			get
-			{
-				return this.GetTable<Purchase_Item>();
-			}
-		}
-		
-		public System.Data.Linq.Table<UserAccount> UserAccounts
-		{
-			get
-			{
-				return this.GetTable<UserAccount>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Item> Items
 		{
 			get
@@ -116,363 +100,21 @@ namespace GUISupermarket
 				return this.GetTable<Purchase>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Purchase_Item")]
-	public partial class Purchase_Item : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _purchaseID;
-		
-		private int _itemID;
-		
-		private int _amount;
-		
-		private EntityRef<Item> _Item;
-		
-		private EntityRef<Purchase> _Purchase;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnpurchaseIDChanging(int value);
-    partial void OnpurchaseIDChanged();
-    partial void OnitemIDChanging(int value);
-    partial void OnitemIDChanged();
-    partial void OnamountChanging(int value);
-    partial void OnamountChanged();
-    #endregion
-		
-		public Purchase_Item()
-		{
-			this._Item = default(EntityRef<Item>);
-			this._Purchase = default(EntityRef<Purchase>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_purchaseID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int purchaseID
+		public System.Data.Linq.Table<Purchase_Item> Purchase_Items
 		{
 			get
 			{
-				return this._purchaseID;
-			}
-			set
-			{
-				if ((this._purchaseID != value))
-				{
-					if (this._Purchase.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnpurchaseIDChanging(value);
-					this.SendPropertyChanging();
-					this._purchaseID = value;
-					this.SendPropertyChanged("purchaseID");
-					this.OnpurchaseIDChanged();
-				}
+				return this.GetTable<Purchase_Item>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_itemID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int itemID
+		public System.Data.Linq.Table<UserAccount> UserAccounts
 		{
 			get
 			{
-				return this._itemID;
+				return this.GetTable<UserAccount>();
 			}
-			set
-			{
-				if ((this._itemID != value))
-				{
-					if (this._Item.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnitemIDChanging(value);
-					this.SendPropertyChanging();
-					this._itemID = value;
-					this.SendPropertyChanged("itemID");
-					this.OnitemIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_amount", DbType="Int NOT NULL")]
-		public int amount
-		{
-			get
-			{
-				return this._amount;
-			}
-			set
-			{
-				if ((this._amount != value))
-				{
-					this.OnamountChanging(value);
-					this.SendPropertyChanging();
-					this._amount = value;
-					this.SendPropertyChanged("amount");
-					this.OnamountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_Purchase_Item", Storage="_Item", ThisKey="itemID", OtherKey="itemID", IsForeignKey=true)]
-		public Item Item
-		{
-			get
-			{
-				return this._Item.Entity;
-			}
-			set
-			{
-				Item previousValue = this._Item.Entity;
-				if (((previousValue != value) 
-							|| (this._Item.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Item.Entity = null;
-						previousValue.Purchase_Items.Remove(this);
-					}
-					this._Item.Entity = value;
-					if ((value != null))
-					{
-						value.Purchase_Items.Add(this);
-						this._itemID = value.itemID;
-					}
-					else
-					{
-						this._itemID = default(int);
-					}
-					this.SendPropertyChanged("Item");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Purchase_Purchase_Item", Storage="_Purchase", ThisKey="purchaseID", OtherKey="PurchaseID", IsForeignKey=true)]
-		public Purchase Purchase
-		{
-			get
-			{
-				return this._Purchase.Entity;
-			}
-			set
-			{
-				Purchase previousValue = this._Purchase.Entity;
-				if (((previousValue != value) 
-							|| (this._Purchase.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Purchase.Entity = null;
-						previousValue.Purchase_Items.Remove(this);
-					}
-					this._Purchase.Entity = value;
-					if ((value != null))
-					{
-						value.Purchase_Items.Add(this);
-						this._purchaseID = value.PurchaseID;
-					}
-					else
-					{
-						this._purchaseID = default(int);
-					}
-					this.SendPropertyChanged("Purchase");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UserAccount")]
-	public partial class UserAccount : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _username;
-		
-		private string _pswd;
-		
-		private System.Nullable<decimal> _balance;
-		
-		private EntitySet<Payment> _Payments;
-		
-		private EntitySet<Purchase> _Purchases;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnusernameChanging(string value);
-    partial void OnusernameChanged();
-    partial void OnpswdChanging(string value);
-    partial void OnpswdChanged();
-    partial void OnbalanceChanging(System.Nullable<decimal> value);
-    partial void OnbalanceChanged();
-    #endregion
-		
-		public UserAccount()
-		{
-			this._Payments = new EntitySet<Payment>(new Action<Payment>(this.attach_Payments), new Action<Payment>(this.detach_Payments));
-			this._Purchases = new EntitySet<Purchase>(new Action<Purchase>(this.attach_Purchases), new Action<Purchase>(this.detach_Purchases));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_username", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string username
-		{
-			get
-			{
-				return this._username;
-			}
-			set
-			{
-				if ((this._username != value))
-				{
-					this.OnusernameChanging(value);
-					this.SendPropertyChanging();
-					this._username = value;
-					this.SendPropertyChanged("username");
-					this.OnusernameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pswd", DbType="Char(8)")]
-		public string pswd
-		{
-			get
-			{
-				return this._pswd;
-			}
-			set
-			{
-				if ((this._pswd != value))
-				{
-					this.OnpswdChanging(value);
-					this.SendPropertyChanging();
-					this._pswd = value;
-					this.SendPropertyChanged("pswd");
-					this.OnpswdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_balance", DbType="Decimal(2,2)")]
-		public System.Nullable<decimal> balance
-		{
-			get
-			{
-				return this._balance;
-			}
-			set
-			{
-				if ((this._balance != value))
-				{
-					this.OnbalanceChanging(value);
-					this.SendPropertyChanging();
-					this._balance = value;
-					this.SendPropertyChanged("balance");
-					this.OnbalanceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UserAccount_Payment", Storage="_Payments", ThisKey="username", OtherKey="username")]
-		public EntitySet<Payment> Payments
-		{
-			get
-			{
-				return this._Payments;
-			}
-			set
-			{
-				this._Payments.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UserAccount_Purchase", Storage="_Purchases", ThisKey="username", OtherKey="username")]
-		public EntitySet<Purchase> Purchases
-		{
-			get
-			{
-				return this._Purchases;
-			}
-			set
-			{
-				this._Purchases.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Payments(Payment entity)
-		{
-			this.SendPropertyChanging();
-			entity.UserAccount = this;
-		}
-		
-		private void detach_Payments(Payment entity)
-		{
-			this.SendPropertyChanging();
-			entity.UserAccount = null;
-		}
-		
-		private void attach_Purchases(Purchase entity)
-		{
-			this.SendPropertyChanging();
-			entity.UserAccount = this;
-		}
-		
-		private void detach_Purchases(Purchase entity)
-		{
-			this.SendPropertyChanging();
-			entity.UserAccount = null;
 		}
 	}
 	
@@ -989,6 +631,364 @@ namespace GUISupermarket
 		{
 			this.SendPropertyChanging();
 			entity.Purchase = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Purchase_Item")]
+	public partial class Purchase_Item : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _purchaseID;
+		
+		private int _itemID;
+		
+		private int _amount;
+		
+		private EntityRef<Item> _Item;
+		
+		private EntityRef<Purchase> _Purchase;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnpurchaseIDChanging(int value);
+    partial void OnpurchaseIDChanged();
+    partial void OnitemIDChanging(int value);
+    partial void OnitemIDChanged();
+    partial void OnamountChanging(int value);
+    partial void OnamountChanged();
+    #endregion
+		
+		public Purchase_Item()
+		{
+			this._Item = default(EntityRef<Item>);
+			this._Purchase = default(EntityRef<Purchase>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_purchaseID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int purchaseID
+		{
+			get
+			{
+				return this._purchaseID;
+			}
+			set
+			{
+				if ((this._purchaseID != value))
+				{
+					if (this._Purchase.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnpurchaseIDChanging(value);
+					this.SendPropertyChanging();
+					this._purchaseID = value;
+					this.SendPropertyChanged("purchaseID");
+					this.OnpurchaseIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_itemID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int itemID
+		{
+			get
+			{
+				return this._itemID;
+			}
+			set
+			{
+				if ((this._itemID != value))
+				{
+					if (this._Item.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnitemIDChanging(value);
+					this.SendPropertyChanging();
+					this._itemID = value;
+					this.SendPropertyChanged("itemID");
+					this.OnitemIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_amount", DbType="Int NOT NULL")]
+		public int amount
+		{
+			get
+			{
+				return this._amount;
+			}
+			set
+			{
+				if ((this._amount != value))
+				{
+					this.OnamountChanging(value);
+					this.SendPropertyChanging();
+					this._amount = value;
+					this.SendPropertyChanged("amount");
+					this.OnamountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_Purchase_Item", Storage="_Item", ThisKey="itemID", OtherKey="itemID", IsForeignKey=true)]
+		public Item Item
+		{
+			get
+			{
+				return this._Item.Entity;
+			}
+			set
+			{
+				Item previousValue = this._Item.Entity;
+				if (((previousValue != value) 
+							|| (this._Item.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Item.Entity = null;
+						previousValue.Purchase_Items.Remove(this);
+					}
+					this._Item.Entity = value;
+					if ((value != null))
+					{
+						value.Purchase_Items.Add(this);
+						this._itemID = value.itemID;
+					}
+					else
+					{
+						this._itemID = default(int);
+					}
+					this.SendPropertyChanged("Item");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Purchase_Purchase_Item", Storage="_Purchase", ThisKey="purchaseID", OtherKey="PurchaseID", IsForeignKey=true)]
+		public Purchase Purchase
+		{
+			get
+			{
+				return this._Purchase.Entity;
+			}
+			set
+			{
+				Purchase previousValue = this._Purchase.Entity;
+				if (((previousValue != value) 
+							|| (this._Purchase.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Purchase.Entity = null;
+						previousValue.Purchase_Items.Remove(this);
+					}
+					this._Purchase.Entity = value;
+					if ((value != null))
+					{
+						value.Purchase_Items.Add(this);
+						this._purchaseID = value.PurchaseID;
+					}
+					else
+					{
+						this._purchaseID = default(int);
+					}
+					this.SendPropertyChanged("Purchase");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UserAccount")]
+	public partial class UserAccount : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _username;
+		
+		private string _pswd;
+		
+		private System.Nullable<decimal> _balance;
+		
+		private EntitySet<Payment> _Payments;
+		
+		private EntitySet<Purchase> _Purchases;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnusernameChanging(string value);
+    partial void OnusernameChanged();
+    partial void OnpswdChanging(string value);
+    partial void OnpswdChanged();
+    partial void OnbalanceChanging(System.Nullable<decimal> value);
+    partial void OnbalanceChanged();
+    #endregion
+		
+		public UserAccount()
+		{
+			this._Payments = new EntitySet<Payment>(new Action<Payment>(this.attach_Payments), new Action<Payment>(this.detach_Payments));
+			this._Purchases = new EntitySet<Purchase>(new Action<Purchase>(this.attach_Purchases), new Action<Purchase>(this.detach_Purchases));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_username", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string username
+		{
+			get
+			{
+				return this._username;
+			}
+			set
+			{
+				if ((this._username != value))
+				{
+					this.OnusernameChanging(value);
+					this.SendPropertyChanging();
+					this._username = value;
+					this.SendPropertyChanged("username");
+					this.OnusernameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pswd", DbType="Char(8)")]
+		public string pswd
+		{
+			get
+			{
+				return this._pswd;
+			}
+			set
+			{
+				if ((this._pswd != value))
+				{
+					this.OnpswdChanging(value);
+					this.SendPropertyChanging();
+					this._pswd = value;
+					this.SendPropertyChanged("pswd");
+					this.OnpswdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_balance", DbType="Decimal(5,2)")]
+		public System.Nullable<decimal> balance
+		{
+			get
+			{
+				return this._balance;
+			}
+			set
+			{
+				if ((this._balance != value))
+				{
+					this.OnbalanceChanging(value);
+					this.SendPropertyChanging();
+					this._balance = value;
+					this.SendPropertyChanged("balance");
+					this.OnbalanceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UserAccount_Payment", Storage="_Payments", ThisKey="username", OtherKey="username")]
+		public EntitySet<Payment> Payments
+		{
+			get
+			{
+				return this._Payments;
+			}
+			set
+			{
+				this._Payments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UserAccount_Purchase", Storage="_Purchases", ThisKey="username", OtherKey="username")]
+		public EntitySet<Purchase> Purchases
+		{
+			get
+			{
+				return this._Purchases;
+			}
+			set
+			{
+				this._Purchases.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Payments(Payment entity)
+		{
+			this.SendPropertyChanging();
+			entity.UserAccount = this;
+		}
+		
+		private void detach_Payments(Payment entity)
+		{
+			this.SendPropertyChanging();
+			entity.UserAccount = null;
+		}
+		
+		private void attach_Purchases(Purchase entity)
+		{
+			this.SendPropertyChanging();
+			entity.UserAccount = this;
+		}
+		
+		private void detach_Purchases(Purchase entity)
+		{
+			this.SendPropertyChanging();
+			entity.UserAccount = null;
 		}
 	}
 }

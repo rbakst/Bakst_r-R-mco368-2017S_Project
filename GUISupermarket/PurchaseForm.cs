@@ -25,11 +25,11 @@ namespace GUISupermarket
 
         private void PurchaseForm_Load(object sender, EventArgs e)
         {
-            using (Global.Context)
+            using (DataClasses1DataContext context = new DataClasses1DataContext())
             {
                 
                 //format price to currency accross project.
-                var products = Global.Context.Items.Select(p => new { p.itemID, p.itemDesc,  p.price });
+                var products = context.Items.Select(p => new { p.itemID, p.itemDesc,  p.price });
                 dataGridView1.DataSource = products;
             }
 
@@ -46,11 +46,14 @@ namespace GUISupermarket
 
         private void btnPurchase_Click(object sender, EventArgs e)
         {
+                       
 
-            using (Global.Context)
-           //using (DataClasses1DataContext c = new DataClasses1DataContext())
+           // using (Global.Context)
+           using (DataClasses1DataContext c = new DataClasses1DataContext())
             {
-          try
+                Global.CurrUser = c.UserAccounts.Where(u => u.username == "rb").FirstOrDefault();
+
+                try
                 {
                     if (Global.CurrUser.balance > Global.MAXBALANCE)
                     {
@@ -62,7 +65,7 @@ namespace GUISupermarket
                     {
                         int colVal;
                         int itemID;
-                        decimal total = 0;
+                        decimal total = 0m;
                         int numItems = 0;
                         decimal price;
                         string itemDesc;
@@ -85,7 +88,7 @@ namespace GUISupermarket
                                     pi.amount = colVal;
                                     purItems.Add(pi);
 
-                                    total += colVal * (decimal)aRow.Cells["price"].Value;
+                                    total += colVal * (Decimal)(aRow.Cells["price"].Value);
                                     numItems += colVal;
 
                                 }
@@ -99,35 +102,36 @@ namespace GUISupermarket
 
                         }
                         Purchase p = new Purchase();
-                        //p.UserAccount = Global.CurrUser;
+
                         p.username = Global.CurrUser.username;
                         p.numItems = numItems;
-                        p.totalPrice = total;
+                        p.totalPrice = (decimal)(total);
+                        //p.totalPrice = 7.97m;
                         p.purchaseDate = DateTime.Now;
-                        Global.Context.Purchases.InsertOnSubmit(p);
+                        //Global.Context.Purchases.InsertOnSubmit(p);
 
-                        //test - wroks
+                        //test -this works
                        // int i = Global.Context.ExecuteCommand("insert into Purchase values('rb', 2, 5.00, getDate())");
                        //ChangeSet x2 = Global.Context.GetChangeSet();
-                       // c.Purchases.InsertOnSubmit(p);
-                       // c.SubmitChanges();
-                        Global.Context.SubmitChanges();
+                        c.Purchases.InsertOnSubmit(p);
+                        c.SubmitChanges();
+                        //Global.Context.SubmitChanges();
                         //doesn't submit?
-                        bool x = Global.Context.Purchases.Contains(p);
-                        MessageBox.Show(x.ToString());
+                        //bool x = Global.Context.Purchases.Contains(p);
+                        //MessageBox.Show(x.ToString());
 
                         int pID = p.PurchaseID;
 
                         //does this update the table in the datacontext?
-                        Global.CurrUser.balance += total;
+                        Global.CurrUser.balance = Global.CurrUser.balance + total;
 
                         foreach (Purchase_Item pi in purItems)
                         {
                             pi.purchaseID = pID;
-                            Global.Context.Purchase_Items.InsertOnSubmit(pi);
-                            //c.Purchase_Items.InsertOnSubmit(pi);
-                            Global.Context.SubmitChanges();
-                            //c.SubmitChanges();
+                            //Global.Context.Purchase_Items.InsertOnSubmit(pi);
+                            c.Purchase_Items.InsertOnSubmit(pi);
+                            //Global.Context.SubmitChanges();
+                            c.SubmitChanges();
                         }
                         MessageBox.Show("Order submitted. Thank you for shopping with us");
                         this.Hide();
@@ -136,7 +140,8 @@ namespace GUISupermarket
                 }
                 catch (SqlException ex)
                 {
-                    MessageBox.Show("Error, could not process order");
+                    MessageBox.Show("Error, could not process order"+ (ex.StackTrace));
+                    
                 }
                 //catch(NotSupportedException ex1)
                 //{

@@ -3,3 +3,7 @@ insert into Item (price, itemDesc) values (0.25, 'potato chips'), (0.25, 'popcor
 (2, 'danish'), (2.50, 'chick peas'), (7, 'frozen pizza'), (3, 'bread')
 
 insert into Item values ('potato chips', 0.25)
+
+select * from Purchase_Item
+
+insert into Purchase values('rb', 2, 5.00, getDate())

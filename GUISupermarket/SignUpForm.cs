@@ -23,12 +23,12 @@ namespace GUISupermarket
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            using (Global.Context)
+            using (DataClasses1DataContext context = new DataClasses1DataContext())
             {
                 //why don't we need this?
                 //Table<UserAccount> users = context.GetTable<UserAccount>();
 
-                Boolean contains = Global.Context.UserAccounts.Any(u => u.username.Equals(usernameTB.Text));
+                Boolean contains = context.UserAccounts.Any(u => u.username.Equals(usernameTB.Text));
                 if (contains)
                 {
                     newUsernameLabel.Visible = true;
@@ -49,8 +49,8 @@ namespace GUISupermarket
                     user.username = usernameTB.Text;
                     user.pswd = pswdTB.Text;
                     user.balance = 0;
-                    Global.Context.UserAccounts.InsertOnSubmit(user);
-                    Global.Context.SubmitChanges();
+                   context.UserAccounts.InsertOnSubmit(user);
+                   context.SubmitChanges();
                     MessageBox.Show("Thank you for signing up");
                     new MainMenuForm().Show();
                     this.Hide();

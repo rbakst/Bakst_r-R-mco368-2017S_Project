@@ -12,9 +12,10 @@ namespace GUISupermarket
 {
     public partial class ViewAllPurchasesForm : Form
     {
-        public ViewAllPurchasesForm()
+        public ViewAllPurchasesForm(IEnumerable<Purchase> rs)
         {
             InitializeComponent();
+            purchasesGridView.DataSource = rs;
         }
 
         

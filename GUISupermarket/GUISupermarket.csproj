@@ -104,6 +104,9 @@
     <Compile Include="ViewPurchasesForm.Designer.cs">
       <DependentUpon>ViewPurchasesForm.cs</DependentUpon>
     </Compile>
+    <None Include="DataClasses1.dbml.layout">
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </None>
     <EmbeddedResource Include="MainMenuForm.resx">
       <DependentUpon>MainMenuForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -113,9 +116,6 @@
     <EmbeddedResource Include="ViewPurchasesForm.resx">
       <DependentUpon>ViewPurchasesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="DataClasses1.dbml.layout">
-      <DependentUpon>DataClasses1.dbml</DependentUpon>
-    </None>
     <EmbeddedResource Include="CheckBalanceForm.resx">
       <DependentUpon>CheckBalanceForm.cs</DependentUpon>
     </EmbeddedResource>

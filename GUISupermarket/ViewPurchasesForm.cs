@@ -19,12 +19,14 @@ namespace GUISupermarket
 
         private void btnAllPurchases_Click(object sender, EventArgs e)
         {
-            using (Global.Context)
+            using (DataClasses1DataContext context = new DataClasses1DataContext())
             {
-                ViewAllPurchasesForm form = new ViewAllPurchasesForm();
-                form.purchasesGridView.DataSource = Global.Context.Purchases.Select(p => p);
+               /* ViewAllPurchasesForm form = new ViewAllPurchasesForm();
+                form.purchasesGridView.DataSource = context.Purchases.Select(p => p);
                 form.Show();
-                this.Hide();
+                //this.Hide();*/
+                var rs = context.Purchases.Select(p => p);
+                new ViewAllPurchasesForm(rs).Show();
 
             }
            
@@ -32,23 +34,30 @@ namespace GUISupermarket
 
         private void btnDatePurchases_Click(object sender, EventArgs e)
         {
-            using (Global.Context)
+            using (DataClasses1DataContext context = new DataClasses1DataContext())
             {
+                /*
                 ViewAllPurchasesForm form = new ViewAllPurchasesForm();
-                form.purchasesGridView.DataSource = Global.Context.Purchases.Where(p => p.purchaseDate >= calendar.SelectionStart && p.purchaseDate <= calendar.SelectionEnd);
+                form.purchasesGridView.DataSource = context.Purchases.Where(p => p.purchaseDate >= calendar.SelectionStart && p.purchaseDate <= calendar.SelectionEnd);
                 form.Show();
-                this.Hide();   
+                this.Hide();   */
+
+                var rs = context.Purchases.Where(p => p.purchaseDate >= calendar.SelectionStart && p.purchaseDate <= calendar.SelectionEnd);
+                new ViewAllPurchasesForm(rs).Show();
             }
         }
 
         private void btnAmountPurchases_Click(object sender, EventArgs e)
         {
-            using (Global.Context)
-            {
+            using (DataClasses1DataContext context = new DataClasses1DataContext())
+            {/*
                 ViewAllPurchasesForm form = new ViewAllPurchasesForm();
-                form.purchasesGridView.DataSource = Global.Context.Purchases.Where(p => p.totalPrice >= FromAmount.Value && p.totalPrice <= ToAmount.Value);
+                form.purchasesGridView.DataSource =context.Purchases.Where(p => p.totalPrice >= FromAmount.Value && p.totalPrice <= ToAmount.Value);
                 form.Show();
-                this.Hide();
+                this.Hide();*/
+                var rs = context.Purchases.Where(p => p.totalPrice >= FromAmount.Value && p.totalPrice <= ToAmount.Value);
+                new ViewAllPurchasesForm(rs).Show();
+
             }
         }
     }

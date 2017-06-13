@@ -16,13 +16,13 @@ namespace GUISupermarket
         private static readonly decimal _MAXBALANCE = 100.00M;
         public static decimal MAXBALANCE { get { return _MAXBALANCE; } }
 
-        public static DataClasses1DataContext Context
+       /* public static DataClasses1DataContext Context
         {
             get
             {
                 return context == null ? new DataClasses1DataContext() : context;
                 
             }
-        }
+        }*/
     }
 }
