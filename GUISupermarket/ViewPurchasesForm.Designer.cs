@@ -34,10 +34,13 @@
             this.btnDatePurchases = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.btnAmountPurchases = new System.Windows.Forms.Button();
-            this.calendar = new System.Windows.Forms.MonthCalendar();
+            this.fromCalendar = new System.Windows.Forms.MonthCalendar();
             this.label5 = new System.Windows.Forms.Label();
             this.FromAmount = new System.Windows.Forms.NumericUpDown();
             this.ToAmount = new System.Windows.Forms.NumericUpDown();
+            this.toCalendar = new System.Windows.Forms.MonthCalendar();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.FromAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ToAmount)).BeginInit();
             this.SuspendLayout();
@@ -64,7 +67,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(322, 109);
+            this.label2.Location = new System.Drawing.Point(322, 91);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(162, 17);
             this.label2.TabIndex = 2;
@@ -72,7 +75,7 @@
             // 
             // btnDatePurchases
             // 
-            this.btnDatePurchases.Location = new System.Drawing.Point(365, 365);
+            this.btnDatePurchases.Location = new System.Drawing.Point(374, 373);
             this.btnDatePurchases.Name = "btnDatePurchases";
             this.btnDatePurchases.Size = new System.Drawing.Size(75, 23);
             this.btnDatePurchases.TabIndex = 3;
@@ -99,11 +102,11 @@
             this.btnAmountPurchases.UseVisualStyleBackColor = true;
             this.btnAmountPurchases.Click += new System.EventHandler(this.btnAmountPurchases_Click);
             // 
-            // calendar
+            // fromCalendar
             // 
-            this.calendar.Location = new System.Drawing.Point(277, 146);
-            this.calendar.Name = "calendar";
-            this.calendar.TabIndex = 6;
+            this.fromCalendar.Location = new System.Drawing.Point(102, 146);
+            this.fromCalendar.Name = "fromCalendar";
+            this.fromCalendar.TabIndex = 6;
             // 
             // label5
             // 
@@ -140,15 +143,42 @@
             this.ToAmount.Size = new System.Drawing.Size(120, 22);
             this.ToAmount.TabIndex = 11;
             // 
+            // toCalendar
+            // 
+            this.toCalendar.Location = new System.Drawing.Point(458, 146);
+            this.toCalendar.Name = "toCalendar";
+            this.toCalendar.TabIndex = 12;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(102, 117);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 17);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "From:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(458, 117);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 17);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "To:";
+            // 
             // ViewPurchasesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(851, 559);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.toCalendar);
             this.Controls.Add(this.ToAmount);
             this.Controls.Add(this.FromAmount);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.calendar);
+            this.Controls.Add(this.fromCalendar);
             this.Controls.Add(this.btnAmountPurchases);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnDatePurchases);
@@ -172,9 +202,12 @@
         private System.Windows.Forms.Button btnDatePurchases;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnAmountPurchases;
-        private System.Windows.Forms.MonthCalendar calendar;
+        private System.Windows.Forms.MonthCalendar fromCalendar;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown FromAmount;
         private System.Windows.Forms.NumericUpDown ToAmount;
+        private System.Windows.Forms.MonthCalendar toCalendar;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label6;
     }
 }

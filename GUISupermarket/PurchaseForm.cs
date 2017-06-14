@@ -51,7 +51,7 @@ namespace GUISupermarket
            // using (Global.Context)
            using (DataClasses1DataContext c = new DataClasses1DataContext())
             {
-                Global.CurrUser = c.UserAccounts.Where(u => u.username == "rb").FirstOrDefault();
+                //Global.CurrUser = c.UserAccounts.Where(u => u.username == "rb").FirstOrDefault();
 
                 try
                 {
@@ -60,6 +60,7 @@ namespace GUISupermarket
                         MessageBox.Show(String.Format("Your current balance is {0:C}."
                             + "\nThe Maximum Balance allowed to make a purchase is {1:C}." +
                             "Please make a payment in order to purchase further.", Global.CurrUser.balance, Global.MAXBALANCE));
+                        this.Hide();
                     }
                     else
                     {

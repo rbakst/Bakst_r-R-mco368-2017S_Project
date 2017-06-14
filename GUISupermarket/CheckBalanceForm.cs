@@ -15,7 +15,9 @@ namespace GUISupermarket
         public CheckBalanceForm()
         {
             InitializeComponent();
-            balanceLabel.Text += Global.CurrUser.balance;
+            balanceLabel.Text += String.Format("{0:C}", Global.CurrUser.balance);
+           
+           
         }
 
         private void btnMakePayment_Click(object sender, EventArgs e)

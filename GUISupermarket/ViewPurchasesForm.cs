@@ -25,7 +25,7 @@ namespace GUISupermarket
                 form.purchasesGridView.DataSource = context.Purchases.Select(p => p);
                 form.Show();
                 //this.Hide();*/
-                var rs = context.Purchases.Select(p => p);
+                var rs = context.Purchases.Where(p => p.username == Global.CurrUser.username );
                 new ViewAllPurchasesForm(rs).Show();
 
             }
@@ -42,7 +42,7 @@ namespace GUISupermarket
                 form.Show();
                 this.Hide();   */
 
-                var rs = context.Purchases.Where(p => p.purchaseDate >= calendar.SelectionStart && p.purchaseDate <= calendar.SelectionEnd);
+                var rs = context.Purchases.Where(p => p.username == Global.CurrUser.username && (p.purchaseDate >= fromCalendar.SelectionStart && p.purchaseDate <= toCalendar.SelectionStart));
                 new ViewAllPurchasesForm(rs).Show();
             }
         }
@@ -55,7 +55,8 @@ namespace GUISupermarket
                 form.purchasesGridView.DataSource =context.Purchases.Where(p => p.totalPrice >= FromAmount.Value && p.totalPrice <= ToAmount.Value);
                 form.Show();
                 this.Hide();*/
-                var rs = context.Purchases.Where(p => p.totalPrice >= FromAmount.Value && p.totalPrice <= ToAmount.Value);
+                var rs = context.Purchases.Where(p => p.username == Global.CurrUser.username && p.totalPrice >= FromAmount.Value && p.totalPrice <= ToAmount.Value);
+                
                 new ViewAllPurchasesForm(rs).Show();
 
             }

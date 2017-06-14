@@ -15,7 +15,7 @@ namespace GUISupermarket
         public PaymentForm()
         {
             InitializeComponent();
-            balanceLabel.Text += Global.CurrUser.balance;
+            balanceLabel.Text += String.Format("{0:C}",Global.CurrUser.balance);
         }
 
         private void btnSubmitPayment_Click(object sender, EventArgs e)
@@ -23,8 +23,9 @@ namespace GUISupermarket
             using (DataClasses1DataContext context = new DataClasses1DataContext())
             {
                 Global.CurrUser.balance -= numericUpDown1.Value;
+
                 context.SubmitChanges();
-                MessageBox.Show("Thank you for your payment.\nYour balance is: " + Global.CurrUser.balance);
+                MessageBox.Show("Thank you for your payment.\nYour balance is: " + String.Format("{0:C}",Global.CurrUser.balance));
 
             }
             this.Hide();
